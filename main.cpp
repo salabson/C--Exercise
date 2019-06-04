@@ -2,6 +2,7 @@
 #include<vector>
 #include<string>
 #include<cctype>
+#include<algorithm>
 
 using namespace std;
 
@@ -35,16 +36,51 @@ vector<string> split(string& s){
 
 }
 
+string::size_type width (const vector<string>& v){
+    string::size_type maxLength = 0;
+    // iterate through vector and return the length of the longest string
+    for(vector<string>::size_type i=0; i!=v.size(); i++){
+        maxLength = max(maxLength, v[i].size());
+
+    }
+    return maxLength;
+
+
+}
+
+vector<string> frame(const vector<string>& v){
+    vector<string> ret;
+    // get length of the longest string
+    string::size_type maxLength = width(v);
+
+    // top of the frame
+    string border(maxLength+4, '*');
+    ret.push_back(border);
+
+    for(vector<string>::size_type i=0; i!=v.size(); i++){
+       ret.push_back("* " + v[i] + string(maxLength-v[i].size(), ' ') + " *" );
+
+    }
+
+    return ret;
+
+
+}
+
+
 int main()
 {
 
     string s;
     vector<string> result;
+     vector<string> frame_v;
    while(getline(cin, s)){
     vector<string> result =split(s);
+    frame_v = frame(result);
 
-       for(vector<string>::size_type i=0; i!=result.size(); i++){
-        cout << result[i] << endl;
+
+       for(vector<string>::size_type i=0; i!=frame_v.size(); i++){
+        cout << frame_v[i] << endl;
        }
    }
 
