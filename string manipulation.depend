@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1559595848 source:c:\users\hp\desktop\c++ exercise\string manipulation\main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<cctype>
+
