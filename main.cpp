@@ -5,12 +5,15 @@
 #include<algorithm>
 
 using namespace std;
+using std::find_if;
 
-vector<string> split(string& s){
+/**
+vector<string> split(const string& s){
   typedef string::size_type str_size;
-   str_size i =0;
-   vector<string> ret;
+  str_size i =0;
+  vector<string> ret;
 
+  // while not end of the string
    while(i!=s.size()){
 
     // find beginning of the word
@@ -34,6 +37,38 @@ vector<string> split(string& s){
 
    return ret;
 
+}
+**/
+
+bool space(char c){
+    return isspace(c);
+}
+
+bool not_space(char c){
+    return !isspace(c);
+
+}
+
+vector<string> split(const string& s){
+    typedef string::const_iterator iter;
+    vector<string> ret;
+    iter i = s.begin();
+
+    while(i!= s.end()){
+        // find beginning of a word
+        i = find_if(i, s.end(), not_space);
+
+       // find the end of the word
+       iter j = find_if(i, s.end(), space);
+
+       // copy letter from i to j and append to the end of the string vector
+        if(i!= s.end()){
+        ret.push_back(string(i,j));
+        i=j;
+        }
+
+   }
+     return ret;
 }
 
 string::size_type width (const vector<string>& v){
@@ -62,6 +97,9 @@ vector<string> frame(const vector<string>& v){
 
     }
 
+    // bottom of the frame
+    ret.push_back(border);
+
     return ret;
 
 
@@ -73,7 +111,9 @@ int main()
 
     string s;
     vector<string> result;
-     vector<string> frame_v;
+    vector<string> frame_v;
+
+
    while(getline(cin, s)){
     vector<string> result =split(s);
     frame_v = frame(result);
