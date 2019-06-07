@@ -3,9 +3,14 @@
 #include<string>
 #include<cctype>
 #include<algorithm>
+#include<map>
 
 using namespace std;
 using std::find_if;
+using std::istream;
+using std::string;
+using std::cin;
+
 
 /**
 vector<string> split(const string& s){
@@ -106,9 +111,17 @@ vector<string> frame(const vector<string>& v){
 }
 
 
+istream& wordCounter(istream& in, map<string,int>& counters){
+    string word;
+    in >> word;
+    ++counters[word];
+    return in;
+}
+
+
 int main()
 {
-
+   /**
     string s;
     vector<string> result;
     vector<string> frame_v;
@@ -123,6 +136,14 @@ int main()
         cout << frame_v[i] << endl;
        }
    }
+
+   **/
+
+   map<string,int> counters;
+   while(wordCounter(cin, counters))
+
+for(map<string,int>::const_iterator it= counters.begin(); it!=counters.end(); it++)
+cout << (*it).first << " " << it->second;
 
 
 
