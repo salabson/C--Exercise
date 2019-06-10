@@ -54,6 +54,8 @@ bool not_space(char c){
 
 }
 
+// split string into its constituent words
+// using algorithm and iterator
 vector<string> split(const string& s){
     typedef string::const_iterator iter;
     vector<string> ret;
@@ -118,6 +120,29 @@ istream& wordCounter(istream& in, map<string,int>& counters){
     return in;
 }
 
+map<string, vector<int> > xref(istream& in, vector<string> find_word(const string&)=split){
+    map<string, vector<int> > ret;
+    string line;
+    int line_number = 0;
+
+    while(getline(in, line, ' ')){
+        ++line_number;
+
+        vector<string> word = find_word(line);
+
+        for(vector<string>::const_iterator it = word.begin(); it!=word.end(); it++){
+
+            ret[*it].push_back(line_number);
+        }
+
+
+
+    }
+
+    return ret;
+
+}
+
 
 int main()
 {
@@ -137,14 +162,36 @@ int main()
        }
    }
 
-   **/
+
 
    map<string,int> counters;
    while(wordCounter(cin, counters))
 
 for(map<string,int>::const_iterator it= counters.begin(); it!=counters.end(); it++)
 cout << (*it).first << " " << it->second;
+**/
 
+ map<string, vector<int> > result = xref(cin);
+
+ for(map<string,vector<int> >::const_iterator it = result.begin(); it!=result.end(); it++){
+    // write word or key of the map
+    cout << it->first << "occur on line(s)";
+
+   // write value of the stored by the key, which is a vector
+   vector<int>::const_iterator line_it = it->second.begin();
+   // first line number
+    cout << *line_it;
+
+    ++line_it;
+   // write the rest of the line number
+   while(line_it!=it->second.end()){
+        cout << ","<< *line_it;
+        ++line_it;
+   }
+
+  // write new line to separate word from next
+  cout << endl;
+ }
 
 
     return 0;
